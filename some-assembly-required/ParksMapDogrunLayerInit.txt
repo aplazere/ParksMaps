@@ -1,0 +1,72 @@
+ function hasDogrun_layer_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"fillOpacity": "0.5", "fillcolor": "Blue", "stroke": false, "weight": 2};
+            }
+        }
+        function hasDogrun_layer_highlighter(feature) {
+            switch(feature.id) {
+                default:
+                    return {"fillOpacity": ".2"};
+            }
+        }
+        function hasDogrun_layer_pointToLayer(feature, latlng) {
+            var opts = {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 2, "stroke": true, "weight": 3};
+            
+            let style = hasDogrun_layer_styler(feature)
+            Object.assign(opts, style)
+            
+            return new L.CircleMarker(latlng, opts)
+        }
+
+        function hasDogrun_layer_onEachFeature(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        hasDogrun_layer.resetStyle(e.target);
+                    }
+                },
+                mouseover: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        const highlightStyle = hasDogrun_layer_highlighter(e.target.feature)
+                        e.target.setStyle(highlightStyle);
+                    }
+                },
+            });
+        };
+        var hasDogrun_layer = L.geoJson(null, {
+                onEachFeature: hasDogrun_layer_onEachFeature,
+            
+                style: hasDogrun_layer_styler,
+                pointToLayer: hasDogrun_layer_pointToLayer
+        });
+
+        function hasDogrun_layer_add (data) {
+            hasDogrun_layer
+                .addData(data)
+                //.addTo(Qmap);
+        }
+            hasDogrun_layer_add()
+
+        hasDogrun_layer.bindPopup(
+        function(layer){
+        let div = L.DomUtil.create('div');
+        
+        let handleObject = feature=>typeof(feature)=='object' ? JSON.stringify(feature) : feature;
+        let fields = ["Park Name", "Reported District", "Geo-Verified District", "Maps Link", "Cross Streets", "Area", "Has Dog-Run?", "Has Restroom?"];
+        let aliases = ["Park Name", "Reported District", "Geo-Verified District", "Maps Link", "Cross Streets", "Area", "Has Dog-Run?", "Has Restroom?"];
+        let table = '<table>' +
+            String(
+            fields.map(
+            (v,i)=>
+            `<tr>
+                <th>${aliases[i].toLocaleString()}</th>
+                
+                <td>${handleObject(layer.feature.properties[v]).toLocaleString()}</td>
+            </tr>`).join(''))
+        +'</table>';
+        div.innerHTML=table;
+        
+        return div
+        }
+        ,{"className": "foliumpopup"});

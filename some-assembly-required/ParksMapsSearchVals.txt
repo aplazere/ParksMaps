@@ -1,0 +1,4 @@
+const searchData= []
+var nearestDogrun = []
+var nearestRestroom = []
+var nearestPlaygrounds = []

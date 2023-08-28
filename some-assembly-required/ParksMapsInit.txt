@@ -1,0 +1,104 @@
+<script>
+    
+    
+            var Xmap = L.map(
+                "Xmap",
+                {
+                    center: [40.67142271413607, -73.83371334300313],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 10,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+            L.control.scale().addTo(Xmap);
+
+            
+
+        
+    
+            var tile_streetmap = L.tileLayer(
+                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "Data by \u0026copy; \u003ca target=\"_blank\" href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\"_blank\" href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(Xmap);
+        
+    
+            Xmap.fitBounds(
+                [[40.54183396045311, -73.96741762213506], [40.80101146781903, -73.7000090638712]],
+                {}
+            );
+        
+    
+        function district_layer_styler(feature) {
+            switch(feature.id) {
+                default:
+                    return {"color": "black", "fillColor": "red", "fillOpacity": 0.4, "weight": 3};
+            }
+        }
+        function district_layer_highlighter(feature) {
+            switch(feature.id) {
+                default:
+                    return {"fillOpacity": "0.2"};
+            }
+        }
+        function district_layer_pointToLayer(feature, latlng) {
+            var opts = {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 2, "stroke": true, "weight": 3};
+            
+            let style = district_layer_styler(feature)
+            Object.assign(opts, style)
+            
+            return new L.CircleMarker(latlng, opts)
+        }
+
+        function district_layer_onEachFeature(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        district_layer.resetStyle(e.target);
+                    }
+                },
+                mouseover: function(e) {
+                    if(typeof e.target.setStyle === "function"){
+                        const highlightStyle = district_layer_highlighter(e.target.feature)
+                        e.target.setStyle(highlightStyle);
+                    }
+                },
+            });
+        };
+        var district_layer = L.geoJson(null, {
+                onEachFeature: district_layer_onEachFeature,
+            
+                style: district_layer_styler,
+                pointToLayer: district_layer_pointToLayer
+        });
+
+        function district_layer_add (data) {
+            district_layer
+                .addData(data)
+                .addTo(Xmap);
+        }
+
+        district_layer_add()
+
+        district_layer.bindTooltip(
+    function(layer){
+    let div = L.DomUtil.create('div');
+    
+    let handleObject = feature=>typeof(feature)=='object' ? JSON.stringify(feature) : feature;
+    let fields = ["District"];
+    let aliases = ["District"];
+    let table = '<table>' +
+        String(
+        fields.map(
+        (v,i)=>
+        `<tr>
+            <th>${aliases[i]}</th>
+            
+            <td>${handleObject(layer.feature.properties[v])}</td>
+        </tr>`).join(''))
+    +'</table>';
+    div.innerHTML=table;
+    
+    return div
+    }
+    ,{"className": "foliumtooltip", "sticky": true});

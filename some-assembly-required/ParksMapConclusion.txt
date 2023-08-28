@@ -1,0 +1,21 @@
+ var layer_control = {
+                base_layers : {
+                    "openstreetmap" : tile_streetmap,
+                },
+                overlays :  {
+                    "Districts" : district_layer,
+                    "Parks" : basePark_layer,
+                    //"Has Dogrun?" : hasDogrun_layer,
+                    //"Has Restroom??" : hasRestroom_layer,
+                },
+            };
+            var controller = L.control.layers(
+                layer_control.base_layers,
+                layer_control.overlays,
+                {"autoZIndex": true, "collapsed": true, "position": "topright"}
+            ).addTo(Xmap);
+            controller.addOverlay(hasDogrun_layer, "Has Dogrun?" )
+            controller.addOverlay(hasRestroom_layer, "Has Restroom" )
+                     
+</script>
+</html>

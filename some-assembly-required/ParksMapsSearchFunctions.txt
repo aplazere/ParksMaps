@@ -1,0 +1,153 @@
+const playgroundCoords=[]
+const restroomCoords = []
+const dogrunCoords = []
+
+
+var searchLayer=new L.LayerGroup();
+
+
+Xmap.addLayer(searchLayer)
+
+
+
+
+for (i in searchData) {
+            var name = searchData[i].Name,
+            loc = searchData[i].loc,
+            marker = new L.Marker(new L.latLng(loc),{Name: name});
+            marker.setOpacity(0);
+            var icon = marker.options.icon;
+            icon.options.iconSize = [0, 0];
+            marker.setIcon(icon)
+            searchLayer.addLayer(marker)
+            
+      
+        }
+
+        for (i in nearestPlaygrounds) {
+
+            loc = nearestPlaygrounds[i].loc,
+            playgroundCoords.push(L.latLng(loc))
+            
+          
+        }
+
+        for (i in nearestRestroom) {
+
+            loc = nearestRestroom[i].loc,
+            restroomCoords.push(L.latLng(loc))
+
+
+        }
+
+        for (i in nearestDogrun) {
+
+            loc = nearestDogrun[i].loc,
+            dogrunCoords.push(L.latLng(loc))
+
+
+        }
+      
+        
+
+        var searchControl = new L.Control.Search({
+                layer: searchLayer,
+                propertyName: "Name",
+                marker: false,
+                zoom: 22,
+                initial: false
+
+               // moveToLocation: function(latlng, title, Xmap) {
+                //    Xmap.fitBounds( latlng.layer.getBounds() );
+                  //  var zoom = Xmap.getBoundsZoom(latlng.layer.getBounds());
+                  //  Xmap.setView(latlng, zoom); // access the zoom
+                //}
+            });
+
+            //searchControl.on('search:locationfound', function(e) {
+                
+                //console.log('search:locationfound', );
+
+                //map.removeLayer(this._markerSearch)
+
+             //   e.layer.setStyle({fillColor: '#3f0', color: '#0f0'});
+              //  if(e.layer._popup)
+                //    e.layer.openPopup();
+
+            //}).on('search:collapsed', function(e) {
+
+               // geo_json_16446e243fa6adb907f93712656faeff.eachLayer(function(layer) {	//restore feature color
+                 //   geo_json_16446e243fa6adb907f93712656faeff.resetStyle(layer);
+               // });	
+          //  });
+            
+            Xmap.addControl( searchControl );  //inizialize search control
+       
+       
+       
+        var locator = L.control.locate({
+            position: 'topright',
+            strings: {
+                title: "Show me where I am, yo!"
+            }
+        }).addTo(Xmap)
+    
+
+        var restroomButton = new L.easyButton( '<img src="https://aplazere.github.io/ParksMaps/leaflet-refs/Icon4Restroom.gif" style="width:20px">', getRestroomLocation).addTo(Xmap);
+
+        var dogrunButton = new L.easyButton( '<img src="https://aplazere.github.io/ParksMaps/leaflet-refs/Icon4Dogrun.gif" style="width:20px">',getDogrunLocation).addTo(Xmap);
+        var playgroundButton = new L.easyButton( '<img src="https://aplazere.github.io/ParksMaps/leaflet-refs/Icon4Playground.gif" style="width:20px">', getPlaygroundLocation).addTo(Xmap);
+
+       // var testButton = new L.easyButton('?',getLocation).addTo(Xmap)
+    
+        function getPlaygroundLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(closestPlayground);
+        } else { 
+            alert("error");
+                }
+        }
+        
+        //playgroundFlags= L.polyline(playgroundCoords).addTo(Xmap)
+
+        
+        function closestPlayground(position){
+           closestPt = L.GeometryUtil.closest(Xmap,playgroundCoords, [position.coords.latitude,position.coords.longitude],true)
+           Xmap.setView([closestPt.lat,closestPt.lng], 22, { animation: true })
+           
+        }
+       
+        function getRestroomLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(closestRestroom);
+        } else { 
+            alert("error");
+                }
+        }
+        
+        //RestroomFlags= L.polyline(RestroomCoords).addTo(Xmap)
+
+        
+        function closestRestroom(position){
+           closestPt = L.GeometryUtil.closest(Xmap,restroomCoords, [position.coords.latitude,position.coords.longitude],true)
+           Xmap.setView([closestPt.lat,closestPt.lng], 22, { animation: true })
+           
+        }
+
+
+        function getDogrunLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(closestDogrun);
+        } else { 
+            alert("error");
+                }
+        }
+        
+        //DogrunFlags= L.polyline(DogrunCoords).addTo(Xmap)
+
+        
+        function closestDogrun(position){
+           closestPt = L.GeometryUtil.closest(Xmap,dogrunCoords, [position.coords.latitude,position.coords.longitude],true)
+           Xmap.setView([closestPt.lat,closestPt.lng], 22, { animation: true })
+           
+        }
