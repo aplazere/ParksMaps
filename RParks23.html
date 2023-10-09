@@ -793,23 +793,20 @@ var nearestDogrun = [
 {"loc":[40.625921,-74.091694]},
 ]
 
-const restroomIcon = new L.divIcon({
-    html: '<i class="fa-solid fa-toilet"></i>', 
-    iconSize: [18,18],
-    className: 'myDivIcon'
+const restroomIcon = new L.icon({
+    iconUrl: 'https://aplazere.github.io/ParksMaps/leaflet-refs/images/toilet-svgrepo-com.svg',
+    iconSize: [20,20]
  });
 
- var dogrunIcon = new L.divIcon({
-    html: '<i class="fa-solid fa-dog"></i>', 
-    iconSize: [18,18],
-     
-     className: 'myDivIcon'
+ var dogrunIcon = new L.icon({
+    iconUrl: 'https://aplazere.github.io/ParksMaps/leaflet-refs/images/dog-head.svg',
+    iconSize: [30,30]
 
  });
  var playgroundIcon = L.icon({
-    iconUrl: 'https://aplazere.github.io/ParksMaps/leaflet-refs/images/swing-svgrepo-com.svg',
+    iconUrl: 'https://aplazere.github.io/ParksMaps/leaflet-refs/images/swing-Icon.svg',
 
-    iconSize:     [23, 23], // size of the icon
+    iconSize:     [25, 25], // size of the icon
    
 });
  
