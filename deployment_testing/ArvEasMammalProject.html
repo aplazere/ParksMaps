@@ -12,7 +12,19 @@
     <style>
       html,
       body,
+
+      /* .wrapper {
+    display: inline-grid;
+    grid-template-columns: repeat(5,1fr);
+    grid-template-rows: repeat(5, 1fr);
+    column-gap: 5px;
+    row-gap: 5px;
+    width: 100vw;
+    height: 100vh
+    } */
       #map {
+        /* grid-column: 2/5;
+        grid-row: 1/4; */
         padding: 0;
         margin: 0;
         height: 100%;
@@ -29,16 +41,16 @@
       
 
       var scatIcon = L.icon({
-          iconUrl: 'https://aplazere.github.io/ParksMaps/leaflet-refs/images/dog-poop-svgrepo-com.svg',
+          iconUrl: 'https://aplazere.github.io/ParksMaps/leaflet-refs/images/poop-solid-svgrepo-com.svg',
 
-          iconSize:     [20, 20], // size of the icon
+          iconSize:     [25, 25], // size of the icon
         
       });
 
       var trackIcon = L.icon({
           iconUrl: 'https://aplazere.github.io/ParksMaps/leaflet-refs/images/pawprint-cat-svgrepo-com.svg',
 
-          iconSize:     [22, 22], // size of the icon
+          iconSize:     [20, 20], // size of the icon
         
       });
 
@@ -51,14 +63,14 @@
       });
       
       const map = L.map("map",{
-          minZoom: 17,
+          minZoom: 16.3,
           maxBounds: [
         //south west
         [40.58760601296615, -73.78840865768424],
         //north east
-        [40.593749026806464, -73.77062024786393]
+        [40.595, -73.77062024786393]
         ]
-      }).setView([40.5915, -73.7782], 17);
+      }).setView([40.591, -73.78], 16.3);
     
 
       L.esri
