@@ -1,0 +1,148 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Simple ImageMapLayer</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+    <!-- Load Esri Leaflet from CDN -->
+    <script src="https://unpkg.com/esri-leaflet@3.0.10/dist/esri-leaflet.js"></script>
+    <script src="https://aplazere.github.io/ParksMaps/leaflet-refs/L.Control.Locate.min.js"></script>
+    <link rel="stylesheet" href="https://aplazere.github.io/ParksMaps/leaflet-refs/L.Control.Locate.min.css">
+    <style>
+      html,
+      body,
+      #map {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        color: #323232;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+      
+
+      var scatIcon = L.icon({
+          iconUrl: 'https://aplazere.github.io/ParksMaps/leaflet-refs/images/dog-poop-svgrepo-com.svg',
+
+          iconSize:     [20, 20], // size of the icon
+        
+      });
+
+      var trackIcon = L.icon({
+          iconUrl: 'https://aplazere.github.io/ParksMaps/leaflet-refs/images/pawprint-cat-svgrepo-com.svg',
+
+          iconSize:     [22, 22], // size of the icon
+        
+      });
+
+
+      var animalIcon = L.icon({
+          iconUrl: 'https://aplazere.github.io/ParksMaps/leaflet-refs/images/racoon-svgrepo-com.svg',
+
+          iconSize:     [30, 30], // size of the icon
+        
+      });
+      
+      const map = L.map("map",{
+          minZoom: 17,
+          maxBounds: [
+        //south west
+        [40.58760601296615, -73.78840865768424],
+        //north east
+        [40.593749026806464, -73.77062024786393]
+        ]
+      }).setView([40.5915, -73.7782], 17);
+    
+
+      L.esri
+        .imageMapLayer({
+          url: "https://gis.apfo.usda.gov/arcgis/rest/services/NAIP/USDA_CONUS_PRIME/ImageServer",
+          attribution: "United States Geological Survey (USGS), National Aeronautics and Space Administration (NASA)"
+        })
+        .addTo(map);
+        var scatPoints = [ {img_link:"https://inaturalist-open-data.s3.amazonaws.com/photos/308804850/original.jpg",loc: [40.590462,-73.781866]}]
+        var trackPoints=[[40.591872,-73.775425],[40.591772,-73.774556],[40.591861,-73.774275],[40.591789,-73.774456],[40.591914,-73.775439]]
+        var animalPoints=[[40.59194166,-73.774644]]
+        var preserveCoords=[ [ -73.7753874, 40.5927635 ], [ -73.7757361, 40.5927319 ], [ -73.7759721, 40.5927095 ], [ -73.7761974, 40.5926973 ], [ -73.7762457, 40.5927013 ], [ -73.7766279, 40.5926627 ], [ -73.7771483, 40.5926066 ], [ -73.7778135, 40.5925354 ], [ -73.7781809, 40.5924977 ], [ -73.7785605, 40.592463 ], [ -73.7789936, 40.5924203 ], [ -73.779518, 40.5923683 ], [ -73.7798318, 40.5923307 ], [ -73.7801041, 40.5923052 ], [ -73.7803401, 40.5922889 ], [ -73.7803669, 40.5922828 ], [ -73.780662, 40.5922502 ], [ -73.7809812, 40.5922207 ], [ -73.7813741, 40.5921799 ], [ -73.7815498, 40.5921626 ], [ -73.7817268, 40.5921412 ], [ -73.7820795, 40.5921087 ], [ -73.7826213, 40.5920516 ], [ -73.7830129, 40.592018 ], [ -73.7832235, 40.5919926 ], [ -73.783434, 40.5919773 ], [ -73.7838042, 40.5919467 ], [ -73.784173, 40.5919406 ], [ -73.7848435, 40.5919651 ], [ -73.7849897, 40.5919518 ], [ -73.7855905, 40.5919854 ], [ -73.7861162, 40.5919956 ], [ -73.7860371, 40.5912624 ], [ -73.7859915, 40.5907735 ], [ -73.7859379, 40.5902806 ], [ -73.7858722, 40.5902827 ], [ -73.7858561, 40.59019 ], [ -73.7858453, 40.5901055 ], [ -73.7858373, 40.5900026 ], [ -73.7858292, 40.5899456 ], [ -73.7858024, 40.5898926 ], [ -73.7857032, 40.5899303 ], [ -73.7856066, 40.589971 ], [ -73.785565, 40.5899853 ], [ -73.7855288, 40.5899924 ], [ -73.7853612, 40.5900311 ], [ -73.7851869, 40.5900851 ], [ -73.7850863, 40.5901116 ], [ -73.7849629, 40.5901666 ], [ -73.7848221, 40.5902297 ], [ -73.7847885, 40.590245 ], [ -73.7847523, 40.5902511 ], [ -73.7846021, 40.5902918 ], [ -73.7843245, 40.5903937 ], [ -73.7841944, 40.5904415 ], [ -73.7841046, 40.5904802 ], [ -73.7840094, 40.5905108 ], [ -73.7838565, 40.590523 ], [ -73.7836352, 40.5905403 ], [ -73.7835829, 40.5905434 ], [ -73.7835306, 40.5905475 ], [ -73.7833777, 40.5905576 ], [ -73.7832288, 40.5905739 ], [ -73.7830505, 40.5905984 ], [ -73.7829553, 40.5906167 ], [ -73.78286, 40.5906361 ], [ -73.7827031, 40.5906615 ], [ -73.7826066, 40.5906829 ], [ -73.7825596, 40.5906931 ], [ -73.7825127, 40.5907043 ], [ -73.7823839, 40.5907369 ], [ -73.7822217, 40.5907847 ], [ -73.7820795, 40.5908285 ], [ -73.7819333, 40.5908683 ], [ -73.7817536, 40.5909039 ], [ -73.781535, 40.5909334 ], [ -73.7813821, 40.5909569 ], [ -73.781185, 40.5909976 ], [ -73.7810093, 40.5910465 ], [ -73.7808605, 40.5910882 ], [ -73.7807156, 40.591131 ], [ -73.7805091, 40.5911738 ], [ -73.7802811, 40.5911992 ], [ -73.7800223, 40.5912369 ], [ -73.7799338, 40.5912603 ], [ -73.7797903, 40.5912838 ], [ -73.7796159, 40.5913041 ], [ -73.7794778, 40.5913174 ], [ -73.7793249, 40.5913296 ], [ -73.7790647, 40.5913449 ], [ -73.7788233, 40.5913642 ], [ -73.7786181, 40.5913917 ], [ -73.7784223, 40.5914233 ], [ -73.778315, 40.5914406 ], [ -73.7781903, 40.591461 ], [ -73.7781098, 40.5914793 ], [ -73.7780575, 40.5914925 ], [ -73.7779342, 40.591517 ], [ -73.7778148, 40.5915384 ], [ -73.7776002, 40.5915781 ], [ -73.7775251, 40.5915872 ], [ -73.77745, 40.5915893 ], [ -73.7773106, 40.5915974 ], [ -73.7770531, 40.5916035 ], [ -73.7768599, 40.5916137 ], [ -73.7766172, 40.5916249 ], [ -73.7765475, 40.591629 ], [ -73.7765153, 40.5916351 ], [ -73.7764362, 40.5916371 ], [ -73.7762953, 40.5916514 ], [ -73.7760808, 40.5916728 ], [ -73.7759413, 40.5916901 ], [ -73.775779, 40.5917115 ], [ -73.7755899, 40.5917543 ], [ -73.7753297, 40.5918042 ], [ -73.7753177, 40.5918938 ], [ -73.7753002, 40.5920547 ], [ -73.7753874, 40.5927635 ] ]
+        
+
+        
+
+        
+        preserveCoords.forEach(function(part, index) {
+          this[index] = this[index].reverse();
+        }, preserveCoords)
+                
+        const polygon = L.polygon([preserveCoords], { fillOpacity: 0.2, fillColor: '#9a8fcd' });
+        polygon.addTo(map);
+
+        var locator = L.control.locate({
+            position: 'topright',
+            strings: {
+                title: "Show me where I am, yo!"
+            }
+        }).addTo(map)
+
+
+        var scatLayer=new L.LayerGroup();
+        map.addLayer(scatLayer)
+
+
+
+        for (i in scatPoints) {
+            loc = scatPoints[i].loc
+            marker = new L.Marker(new L.latLng(loc));
+            marker.setIcon(scatIcon)
+            marker.bindPopup(`<b>Scat!</b><br> <a href=" ${scatPoints[i].img_link.toLocaleString()}"> <img src=" ${scatPoints[i].img_link.toLocaleString()}" width="256" height="177"></a>`).openPopup();
+            
+          
+            scatLayer.addLayer(marker)
+            
+      
+        }
+
+
+        var trackLayer=new L.LayerGroup();
+        map.addLayer(trackLayer)
+
+
+        for (i in trackPoints) {
+            loc = trackPoints[i]
+            marker = new L.Marker(new L.latLng(loc));
+            marker.setIcon(trackIcon)
+            marker.bindPopup("<b>Animal Tracks!</b>").openPopup();
+            
+          
+            trackLayer.addLayer(marker)
+            
+      
+            
+        }
+
+
+        var animalLayer=new L.LayerGroup();
+        map.addLayer(animalLayer)
+
+
+        for (i in animalPoints) {
+            loc = animalPoints[i]
+            marker = new L.Marker(new L.latLng(loc));
+            marker.setIcon(animalIcon)
+            marker.bindPopup("<b>Animal Sighting!</b>").openPopup();
+            
+          
+            animalLayer.addLayer(marker)
+            
+      
+        }
+     
+    </script>
+  </body>
+</html>
