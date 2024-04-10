@@ -1,0 +1,144 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Simple ImageMapLayer</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+    <!-- Load Esri Leaflet from CDN -->
+    <script src="https://unpkg.com/esri-leaflet@3.0.10/dist/esri-leaflet.js"></script>
+    <script src="https://aplazere.github.io/ParksMaps/leaflet-refs/L.Control.Locate.min.js"></script>
+    <link rel="stylesheet" href="https://aplazere.github.io/ParksMaps/leaflet-refs/L.Control.Locate.min.css">
+    <style>
+      html,
+      body,
+
+      /* .wrapper {
+    display: inline-grid;
+    grid-template-columns: repeat(5,1fr);
+    grid-template-rows: repeat(5, 1fr);
+    column-gap: 5px;
+    row-gap: 5px;
+    width: 100vw;
+    height: 100vh
+    } */
+      #map {
+        /* grid-column: 2/5;
+        grid-row: 1/4; */
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        color: #323232;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+      
+
+      var scatIcon = L.icon({
+          iconUrl: 'https://aplazere.github.io/ParksMaps/leaflet-refs/images/poop-solid-svgrepo-com.svg',
+
+          iconSize:     [25, 25], // size of the icon
+        
+      });
+
+      var trackIcon = L.icon({
+          iconUrl: 'https://aplazere.github.io/ParksMaps/leaflet-refs/images/pawprint-cat-svgrepo-com.svg',
+
+          iconSize:     [20, 20], // size of the icon
+        
+      });
+
+
+      var animalIcon = L.icon({
+          iconUrl: 'https://aplazere.github.io/ParksMaps/leaflet-refs/images/racoon-svgrepo-com.svg',
+
+          iconSize:     [30, 30], // size of the icon
+        
+      });
+      
+      const map = L.map("map",{
+          minZoom: 16.3,
+          maxBounds: [
+        //south west
+        [40.58760601296615, -73.78840865768424],
+        //north east
+        [40.595, -73.77062024786393]
+        ]
+      }).setView([40.591, -73.78], 16.3);
+    
+
+      L.esri
+        .imageMapLayer({
+          url: "https://gis.apfo.usda.gov/arcgis/rest/services/NAIP/USDA_CONUS_PRIME/ImageServer",
+          attribution: "United States Geological Survey (USGS), National Aeronautics and Space Administration (NASA)"
+        })
+        .addTo(map);
+        var Transects = [[[40.592067,-73.776464],[40.591842,-73.776603]], [[40.590914,-73.781222],[40.591108,-73.781358]],[[40.590506,-73.783839],[40.590526,-73.783498]]]
+        var Gateways=[[40.590914,-73.781222],[40.590981,-73.780989], [40.590439,-73.783503], [40.591072,-73.779892], [40.591339,-73.778078], [40.591342,-73.777919]]
+ 
+        var preserveCoords=[ [ -73.7753874, 40.5927635 ], [ -73.7757361, 40.5927319 ], [ -73.7759721, 40.5927095 ], [ -73.7761974, 40.5926973 ], [ -73.7762457, 40.5927013 ], [ -73.7766279, 40.5926627 ], [ -73.7771483, 40.5926066 ], [ -73.7778135, 40.5925354 ], [ -73.7781809, 40.5924977 ], [ -73.7785605, 40.592463 ], [ -73.7789936, 40.5924203 ], [ -73.779518, 40.5923683 ], [ -73.7798318, 40.5923307 ], [ -73.7801041, 40.5923052 ], [ -73.7803401, 40.5922889 ], [ -73.7803669, 40.5922828 ], [ -73.780662, 40.5922502 ], [ -73.7809812, 40.5922207 ], [ -73.7813741, 40.5921799 ], [ -73.7815498, 40.5921626 ], [ -73.7817268, 40.5921412 ], [ -73.7820795, 40.5921087 ], [ -73.7826213, 40.5920516 ], [ -73.7830129, 40.592018 ], [ -73.7832235, 40.5919926 ], [ -73.783434, 40.5919773 ], [ -73.7838042, 40.5919467 ], [ -73.784173, 40.5919406 ], [ -73.7848435, 40.5919651 ], [ -73.7849897, 40.5919518 ], [ -73.7855905, 40.5919854 ], [ -73.7861162, 40.5919956 ], [ -73.7860371, 40.5912624 ], [ -73.7859915, 40.5907735 ], [ -73.7859379, 40.5902806 ], [ -73.7858722, 40.5902827 ], [ -73.7858561, 40.59019 ], [ -73.7858453, 40.5901055 ], [ -73.7858373, 40.5900026 ], [ -73.7858292, 40.5899456 ], [ -73.7858024, 40.5898926 ], [ -73.7857032, 40.5899303 ], [ -73.7856066, 40.589971 ], [ -73.785565, 40.5899853 ], [ -73.7855288, 40.5899924 ], [ -73.7853612, 40.5900311 ], [ -73.7851869, 40.5900851 ], [ -73.7850863, 40.5901116 ], [ -73.7849629, 40.5901666 ], [ -73.7848221, 40.5902297 ], [ -73.7847885, 40.590245 ], [ -73.7847523, 40.5902511 ], [ -73.7846021, 40.5902918 ], [ -73.7843245, 40.5903937 ], [ -73.7841944, 40.5904415 ], [ -73.7841046, 40.5904802 ], [ -73.7840094, 40.5905108 ], [ -73.7838565, 40.590523 ], [ -73.7836352, 40.5905403 ], [ -73.7835829, 40.5905434 ], [ -73.7835306, 40.5905475 ], [ -73.7833777, 40.5905576 ], [ -73.7832288, 40.5905739 ], [ -73.7830505, 40.5905984 ], [ -73.7829553, 40.5906167 ], [ -73.78286, 40.5906361 ], [ -73.7827031, 40.5906615 ], [ -73.7826066, 40.5906829 ], [ -73.7825596, 40.5906931 ], [ -73.7825127, 40.5907043 ], [ -73.7823839, 40.5907369 ], [ -73.7822217, 40.5907847 ], [ -73.7820795, 40.5908285 ], [ -73.7819333, 40.5908683 ], [ -73.7817536, 40.5909039 ], [ -73.781535, 40.5909334 ], [ -73.7813821, 40.5909569 ], [ -73.781185, 40.5909976 ], [ -73.7810093, 40.5910465 ], [ -73.7808605, 40.5910882 ], [ -73.7807156, 40.591131 ], [ -73.7805091, 40.5911738 ], [ -73.7802811, 40.5911992 ], [ -73.7800223, 40.5912369 ], [ -73.7799338, 40.5912603 ], [ -73.7797903, 40.5912838 ], [ -73.7796159, 40.5913041 ], [ -73.7794778, 40.5913174 ], [ -73.7793249, 40.5913296 ], [ -73.7790647, 40.5913449 ], [ -73.7788233, 40.5913642 ], [ -73.7786181, 40.5913917 ], [ -73.7784223, 40.5914233 ], [ -73.778315, 40.5914406 ], [ -73.7781903, 40.591461 ], [ -73.7781098, 40.5914793 ], [ -73.7780575, 40.5914925 ], [ -73.7779342, 40.591517 ], [ -73.7778148, 40.5915384 ], [ -73.7776002, 40.5915781 ], [ -73.7775251, 40.5915872 ], [ -73.77745, 40.5915893 ], [ -73.7773106, 40.5915974 ], [ -73.7770531, 40.5916035 ], [ -73.7768599, 40.5916137 ], [ -73.7766172, 40.5916249 ], [ -73.7765475, 40.591629 ], [ -73.7765153, 40.5916351 ], [ -73.7764362, 40.5916371 ], [ -73.7762953, 40.5916514 ], [ -73.7760808, 40.5916728 ], [ -73.7759413, 40.5916901 ], [ -73.775779, 40.5917115 ], [ -73.7755899, 40.5917543 ], [ -73.7753297, 40.5918042 ], [ -73.7753177, 40.5918938 ], [ -73.7753002, 40.5920547 ], [ -73.7753874, 40.5927635 ] ]
+        
+
+        
+
+        
+        preserveCoords.forEach(function(part, index) {
+          this[index] = this[index].reverse();
+        }, preserveCoords)
+                
+        const polygon = L.polygon([preserveCoords], { fillOpacity: 0.2, fillColor: '#9a8fcd' });
+        polygon.addTo(map);
+
+        var locator = L.control.locate({
+            position: 'topright',
+            strings: {
+                title: "Show me where I am, yo!"
+            }
+        }).addTo(map)
+
+
+        var GatewayLayer=new L.LayerGroup();
+        map.addLayer(GatewayLayer)
+
+
+
+        for (i in Gateways) {
+            loc = Gateways[i]
+            marker = new L.Marker(new L.latLng(loc));
+            
+          
+            GatewayLayer.addLayer(marker)
+            
+      
+        }
+
+
+        var TransectLayer=new L.LayerGroup();
+        map.addLayer(TransectLayer)
+
+
+        for (i in Transects) {
+            start = Transects[i][0]
+	    fin = Transects[i][1]
+            line = L.polyline([start,fin], {color: 'red'})
+    
+            
+          
+            TransectLayer.addLayer(line)
+            
+      
+            
+        }
+
+
+       
+     
+    </script>
+  </body>
+</html>
